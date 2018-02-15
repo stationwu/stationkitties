@@ -9,7 +9,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.List;
@@ -95,30 +94,30 @@ public class SVGServiceImpl {
 	private void generateSVG(String bodyPath, String mouthPath, String eyePath, PrimaryColor primaryColor,
 			SecondaryColor secondaryColor, TertiaryColor tertiaryColor, EyeColor eyeColor)
 			throws IOException, TranscoderException {
-		Resource bodyResource = this.fileStorageService.load(bodyPath);
+		Resource bodyResource = this.fileStorageService.loadSVG(bodyPath);
 		File bodyFile = bodyResource.getFile();
 		String bodyContent = file2String(bodyFile);
 
-		Resource mouthResource = this.fileStorageService.load(mouthPath);
+		Resource mouthResource = this.fileStorageService.loadSVG(mouthPath);
 		File mouthFile = mouthResource.getFile();
 		String mouthContent = file2String(mouthFile);
 
-		Resource eyeResource = this.fileStorageService.load(eyePath);
+		Resource eyeResource = this.fileStorageService.loadSVG(eyePath);
 		File eyeFile = eyeResource.getFile();
 		String eyeContent = file2String(eyeFile);
 
-//		for (PrimaryColor pColor : PrimaryColor.values()) {
-//			bodyContent.replaceAll(pColor.toString(), primaryColor.toString());
-//		}
-//		for (SecondaryColor sColor : SecondaryColor.values()) {
-//			bodyContent.replaceAll(sColor.toString(), secondaryColor.toString());
-//		}
-//		for (TertiaryColor tColor : TertiaryColor.values()) {
-//			bodyContent.replaceAll(tColor.toString(), tertiaryColor.toString());
-//		}
-//		for (EyeColor eColor : EyeColor.values()) {
-//			eyeContent.replaceAll(eColor.toString(), eyeColor.toString());
-//		}
+		for (PrimaryColor pColor : PrimaryColor.values()) {
+			bodyContent.replaceAll(pColor.toString(), primaryColor.toString());
+		}
+		for (SecondaryColor sColor : SecondaryColor.values()) {
+			bodyContent.replaceAll(sColor.toString(), secondaryColor.toString());
+		}
+		for (TertiaryColor tColor : TertiaryColor.values()) {
+			bodyContent.replaceAll(tColor.toString(), tertiaryColor.toString());
+		}
+		for (EyeColor eColor : EyeColor.values()) {
+			eyeContent.replaceAll(eColor.toString(), eyeColor.toString());
+		}
 
 		logger.info("body step");
 		BufferedImage bodyImage = generateImage(bodyContent);
@@ -154,7 +153,7 @@ public class SVGServiceImpl {
 			TranscoderOutput output = new TranscoderOutput(outputStream);
 			t.transcode(input, output);
 			outputStream.flush();
-		}finally {
+		} finally {
 			if (outputStream != null) {
 				try {
 					outputStream.close();
@@ -165,16 +164,30 @@ public class SVGServiceImpl {
 		}
 	}
 
-	@SuppressWarnings("resource")
 	private String file2String(File file) throws IOException {
-		InputStream is = new FileInputStream(file);
-		BufferedReader in = new BufferedReader(new InputStreamReader(is));
-		StringBuffer buffer = new StringBuffer();
-		String line = "";
-		while ((line = in.readLine()) != null) {
-			buffer.append(line);
+		int len = 0;
+		StringBuffer str = new StringBuffer("");
+		try {
+			FileInputStream is = new FileInputStream(file);
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader in = new BufferedReader(isr);
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				if (len != 0) // 处理换行符的问题
+				{
+					str.append("\r\n" + line);
+				} else {
+					str.append(line);
+				}
+				len++;
+			}
+			in.close();
+			is.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return buffer.toString();
+		return str.toString();
 	}
 
 }

@@ -1,8 +1,12 @@
 package com.cat.domain;
 
 public enum PatternType{
-	SPOCK(1, "spock"), TIGERPUNK(2, "tigerpunk"), CALICOOL(3, "calicool"), LUCKYSTRIPE(4, "luckystripe"), JAGUAR(5,
-			"jaguar"), TOTESBASIC(0, "totesbasic");
+	TOTESBASIC(0, "totesbasic"),
+	SPOCK(1, "spock"), 
+	//TIGERPUNK(2, "tigerpunk"), 
+	CALICOOL(2, "calicool"), 
+	//LUCKYSTRIPE(4, "luckystripe"), 
+	JAGUAR(3,"jaguar");
 
 	private int index;
 

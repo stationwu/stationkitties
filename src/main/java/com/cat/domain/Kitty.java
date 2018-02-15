@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -66,6 +65,22 @@ public class Kitty {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public LocalDateTime getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(LocalDateTime birthday) {
+		this.birthday = birthday;
+	}
+
+	public List<Kitty> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Kitty> children) {
+		this.children = children;
 	}
 	
 }

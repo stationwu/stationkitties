@@ -1,8 +1,14 @@
 package com.cat.domain;
 
 public enum BodyType implements KittyProperty {
-	MAINECOON(1, "mainecoon"), LAPERM(3, "laperm"), MUNCHKIN(4, "munchkin"), SPHYNX(5,
-			"sphynx"), RAGAMUFFIN(6, "ragamuffin"), HIMALAYAN(2, "himalayan"), CHARTREUX(0, "chartreux");
+	CHARTREUX(0, "chartreux"),
+	MAINECOON(1, "mainecoon"), 
+	//CYMRIC(2, "cymric"), 
+	LAPERM(2, "laperm"), 
+	MUNCHKIN(3, "munchkin"), 
+	SPHYNX(4, "sphynx"), 
+	RAGAMUFFIN(5, "ragamuffin"), 
+	HIMALAYAN(6, "himalayan");
 
 	private int index;
 
