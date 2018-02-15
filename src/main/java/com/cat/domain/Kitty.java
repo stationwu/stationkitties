@@ -26,10 +26,11 @@ public class Kitty {
 	@OneToOne
 	private Gene gene;
 	
-	private Kitty sire;
+//	private Kitty sire;
+//	
+//	private Kitty matron;
 	
-	private Kitty matron;
-	
+	@OneToMany
 	private List<Kitty> children;
 
 	@OneToOne
@@ -51,11 +52,11 @@ public class Kitty {
 		this.kittyName = kittyName;
 	}
 
-	public String getGene() {
+	public Gene getGene() {
 		return gene;
 	}
 
-	public void setGene(String gene) {
+	public void setGene(Gene gene) {
 		this.gene = gene;
 	}
 

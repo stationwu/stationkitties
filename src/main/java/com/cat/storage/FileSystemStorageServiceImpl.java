@@ -126,7 +126,7 @@ public class FileSystemStorageServiceImpl implements FileStorageService {
 
     @Override
     public Resource load(String path) {
-        Path fileLocation = Paths.get(path);
+        Path fileLocation = Paths.get(rootLocation+path+".svg");
 
         try {
             Resource resource = new UrlResource(fileLocation.toUri());

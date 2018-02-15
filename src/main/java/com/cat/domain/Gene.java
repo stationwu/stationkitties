@@ -18,35 +18,17 @@ public class Gene {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	private List<Byte> genes;
+	private Byte[] genes;
 	
 	@OneToOne
 	private Kitty kitty;
-	
-	private Image kittyImage;
-	
-	public long getId() {
-		return id;
-	}
-
-	public void setGenes(List<Byte> genes) {
-		this.genes = genes;
-	}
-	
-	public List<Byte> getGenes() {
-		return genes;
-	}
-	
-	public Kitty getKitty() {
-		return kitty;
-	}
 	
 	public Gene(){
 		List<Byte> geneList = new ArrayList<>();
 		Random num = new Random();
 		for(int i=0;i<12;i++){
-			for(int j=0;i<4;j++){
-				if(i<5){
+			for(int j=0;j<4;j++){
+				if(i<4){
 					geneList.add((byte) num.nextInt(Byte.MAX_VALUE));
 				}else{
 					switch (i) {
@@ -78,21 +60,23 @@ public class Gene {
 				}
 			}
 		}
-		this.genes = geneList;
+		this.genes = geneList.toArray(new Byte[geneList.size()]);
 	}
-	
-	public Image generateKittyImage(List<Byte> geneList){
-		BodyType bodyType = BodyType.byOrdinal(geneList.get(19));
-		PatternType patternType = PatternType.byOrdinal(geneList.get(23));
-		MouthType mouthType = MouthType.byOrdinal(geneList.get(27));
-		EyeType eyeType = EyeType.byOrdinal(geneList.get(31));
-		PrimaryColor primaryColor = PrimaryColor.byOrdinal(geneList.get(35));
-		SecondaryColor secondaryColor = SecondaryColor.byOrdinal(geneList.get(39));
-		TertiaryColor tertiaryColor = TertiaryColor.byOrdinal(geneList.get(43));
-		EyeColor eyeColor = EyeColor.byOrdinal(geneList.get(47));
-		String kittyImagePath =  bodyType.getPath() + '-' + patternType.getPatternName();
-		String kittyMouthPath = mouthType.getPath();
-		String kittyEyePath = eyeType.getPath();
-		
+
+	public long getId() {
+		return id;
 	}
+
+	public Byte[] getGenes() {
+		return genes;
+	}
+
+	public void setKitty(Kitty kitty) {
+		this.kitty = kitty;
+	}
+
+	public Kitty getKitty() {
+		return kitty;
+	}
+
 }

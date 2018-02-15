@@ -9,7 +9,7 @@ public enum MouthType implements KittyProperty {
 
 	private String fileName;
 	
-	final private String folder = "/mouth/";
+	final private String folder = "\\mouth\\";
 
 	private MouthType(int index, String fileName) {
 		this.index = index;

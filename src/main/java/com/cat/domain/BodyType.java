@@ -1,14 +1,14 @@
 package com.cat.domain;
 
 public enum BodyType implements KittyProperty {
-	MAINECOON(1, "mainecoon"), CYMRIC(2, "cymric"), LAPERM(3, "laperm"), MUNCHKIN(4, "munchkin"), SPHYNX(5,
-			"sphynx"), RAGAMUFFIN(6, "ragamuffin"), HIMALAYAN(7, "himalayan"), CHARTREUX(0, "chartreux");
+	MAINECOON(1, "mainecoon"), LAPERM(3, "laperm"), MUNCHKIN(4, "munchkin"), SPHYNX(5,
+			"sphynx"), RAGAMUFFIN(6, "ragamuffin"), HIMALAYAN(2, "himalayan"), CHARTREUX(0, "chartreux");
 
 	private int index;
 
 	private String fileName;
 
-	final private String folder = "/body/";
+	final private String folder = "\\body\\";
 
 	private BodyType(int index, String fileName) {
 		this.index = index;

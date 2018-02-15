@@ -1,14 +1,14 @@
 package com.cat.domain;
 
 public enum EyeType implements KittyProperty {
-	WINGTIPS(1, "wingtips"), FABULOUS(2, "fabulous"), OTAKU(3, "otaku"), RAISEDBROW(4, "raisedbrow"), SIMPLE(5,
-			"simple"), CRAZY(6, "crazy"), THICCCBROWZ(7, "thicccbrowz"), GOOGLY(0, "googly");
+	WINGTIPS(1, "wingtips"), FABULOUS(2, "fabulous"), RAISEDBROW(4, "raisedbrow"), SIMPLE(5,
+			"simple"), CRAZY(6, "crazy"), THICCCBROWZ(3, "thicccbrowz"), GOOGLY(0, "googly");
 
 	private int index;
 
 	private String fileName;
 
-	final private String folder = "/eye/";
+	final private String folder = "\\eye\\";
 
 	private EyeType(int index, String fileName) {
 		this.index = index;
