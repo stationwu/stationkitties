@@ -1,8 +1,14 @@
 package com.cat.domain;
 
 public enum EyeType implements KittyProperty {
-	WINGTIPS(1, "wingtips"), FABULOUS(2, "fabulous"), RAISEDBROW(4, "raisedbrow"), SIMPLE(5,
-			"simple"), CRAZY(6, "crazy"), THICCCBROWZ(3, "thicccbrowz"), GOOGLY(0, "googly");
+	GOOGLY(0, "googly"),
+	WINGTIPS(1, "wingtips"), 
+	FABULOUS(2, "fabulous"), 
+	//OTAKU(3,"otaku"),
+	RAISEDBROW(3, "raisedbrow"), 
+	SIMPLE(4, "simple"), 
+	CRAZY(5, "crazy"), 
+	THICCCBROWZ(6, "thicccbrowz");
 
 	private int index;
 

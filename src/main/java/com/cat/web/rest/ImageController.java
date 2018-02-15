@@ -41,23 +41,10 @@ public class ImageController {
 		Image img = imageRepository.findOne(id);
 
 		// Interceptor already checked it's not null
-		String path = null;
-		resp.setContentType(img.getContentType());
+		String path = img.getPath();
+		resp.setContentType("image/png");
 
 		Resource resource = storageService.load(path);
-		File file = resource.getFile();
-		byte[] content = Files.readAllBytes(file.toPath());
-
-		resp.getOutputStream().write(content);
-	}
-
-	@RequestMapping(path = THUMBNAIL_PATH, method = RequestMethod.GET)
-	public void getThumbnail(@PathVariable Long id, HttpServletResponse resp) throws IOException {
-		Image img = imageRepository.findOne(id);
-
-		resp.setContentType(img.getContentType());
-
-		Resource resource = storageService.load(img.getThumbnailPath());
 		File file = resource.getFile();
 		byte[] content = Files.readAllBytes(file.toPath());
 

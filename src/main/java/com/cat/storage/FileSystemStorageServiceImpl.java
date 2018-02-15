@@ -116,7 +116,7 @@ public class FileSystemStorageServiceImpl implements FileStorageService {
 		Path destinationPath = subRootLocation.resolve(uuid.toString());
 		try {
 			File file = new File(destinationPath.toString());
-			ImageIO.write(image, "jpg", file);
+			ImageIO.write(image, "png", file);
 		} catch (IOException e) {
 			throw new FileStorageException("Failed to store image file", e);
 		}

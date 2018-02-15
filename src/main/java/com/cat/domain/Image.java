@@ -17,21 +17,10 @@ public class Image {
 
     private String imageName;
 
-    @Column
     private String path;
-
-    @Column
-    private String thumbnailPath;
-
-    @Column
-    private String smallVersionPath;
-
-    @Column
-    @NotNull
+    
     private String contentType;
-    
-    private String date;
-    
+
     @OneToOne
     private Kitty kitty;
 
@@ -59,20 +48,12 @@ public class Image {
 		this.path = path;
 	}
 
-	public String getThumbnailPath() {
-		return thumbnailPath;
+	public Kitty getKitty() {
+		return kitty;
 	}
 
-	public void setThumbnailPath(String thumbnailPath) {
-		this.thumbnailPath = thumbnailPath;
-	}
-
-	public String getSmallVersionPath() {
-		return smallVersionPath;
-	}
-
-	public void setSmallVersionPath(String smallVersionPath) {
-		this.smallVersionPath = smallVersionPath;
+	public void setKitty(Kitty kitty) {
+		this.kitty = kitty;
 	}
 
 	public String getContentType() {
@@ -82,21 +63,5 @@ public class Image {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	public Kitty getKitty() {
-		return kitty;
-	}
-
-	public void setKitty(Kitty kitty) {
-		this.kitty = kitty;
-	}
-    
+	
 }

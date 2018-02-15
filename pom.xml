@@ -77,22 +77,23 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.18</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- svg 生成png格式图片 -->
-<dependency>
-    <groupId>org.apache.xmlgraphics</groupId>
-    <artifactId>batik-transcoder</artifactId>
-    <version>1.9.1</version>
-</dependency>
-
-<dependency>
-    <groupId>org.apache.xmlgraphics</groupId>
-    <artifactId>batik-codec</artifactId>
-    <version>1.9.1</version>
-</dependency>
-
-
-		
+		<dependency>
+		    <groupId>org.apache.xmlgraphics</groupId>
+		    <artifactId>batik-transcoder</artifactId>
+		    <version>1.9.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.xmlgraphics</groupId>
+		    <artifactId>batik-codec</artifactId>
+		    <version>1.9.1</version>
+		</dependency>
 		<!-- 此处不能使用2.9.1版本，使用2.9.1生成png会失败 -->
 <!-- svg 生成png格式图片结束 -->
 		

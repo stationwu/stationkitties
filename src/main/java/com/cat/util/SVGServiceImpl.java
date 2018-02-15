@@ -50,7 +50,7 @@ public class SVGServiceImpl {
 		this.fileStorageService = fileStorageService;
 	}
 
-	public void generateKittyImage(List<Byte> geneList) throws IOException, TranscoderException {
+	public String generateKittyImage(List<Byte> geneList) throws IOException, TranscoderException {
 		BodyType bodyType = BodyType.byOrdinal(geneList.get(19));
 
 		logger.info("bodyType" + Integer.toString(bodyType.getIndex()) + bodyType.getFileName());
@@ -87,11 +87,11 @@ public class SVGServiceImpl {
 		String kittyMouthPath = mouthType.getPath();
 		String kittyEyePath = eyeType.getPath();
 
-		this.generateSVG(kittyBodyPath, kittyMouthPath, kittyEyePath, primaryColor, secondaryColor, tertiaryColor,
+		return this.generateSVG(kittyBodyPath, kittyMouthPath, kittyEyePath, primaryColor, secondaryColor, tertiaryColor,
 				eyeColor);
 	}
 
-	private void generateSVG(String bodyPath, String mouthPath, String eyePath, PrimaryColor primaryColor,
+	private String generateSVG(String bodyPath, String mouthPath, String eyePath, PrimaryColor primaryColor,
 			SecondaryColor secondaryColor, TertiaryColor tertiaryColor, EyeColor eyeColor)
 			throws IOException, TranscoderException {
 		Resource bodyResource = this.fileStorageService.loadSVG(bodyPath);
@@ -132,9 +132,10 @@ public class SVGServiceImpl {
 		g.drawImage(mouthImage, 0, 0, bodyImage.getWidth(), bodyImage.getHeight(), null);
 		g.drawImage(eyeImage, 0, 0, bodyImage.getWidth(), bodyImage.getHeight(), null);
 		g.dispose();
+		
+		ImageIO.write(image, "png", new File("d:\\1.png"));
 
-		File outputfile = new File("d:\\1.png");
-		ImageIO.write(image, "png", outputfile);
+		return fileStorageService.store(image);
 	}
 
 	private BufferedImage generateImage(String content) throws TranscoderException, IOException {

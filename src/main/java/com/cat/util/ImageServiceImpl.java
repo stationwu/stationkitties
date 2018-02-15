@@ -59,11 +59,9 @@ public class ImageServiceImpl implements ImageService {
         String pathToFull = fileStorageService.store(imageFull);
         String pathToThumbnail = fileStorageService.store(thumbnail);
         image.setPath(pathToFull);
-        image.setThumbnailPath(pathToThumbnail);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         //LocalDate localDate = LocalDate.now();
-        image.setDate(LocalDateTime.now().format(formatter));
         return imageRepository.save(image);
     }
 
@@ -159,13 +157,10 @@ public class ImageServiceImpl implements ImageService {
         String pathToSmall = fileStorageService.store(imageSmall);
         String pathToThumbnail = fileStorageService.store(imageThumbnail);
         img.setPath(pathToFull);
-        img.setSmallVersionPath(pathToSmall);
-        img.setThumbnailPath(pathToThumbnail);
 
         img.setContentType(file.getContentType());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        img.setDate(LocalDateTime.now().format(formatter));
         
 		return imageRepository.save(img);
 	}
