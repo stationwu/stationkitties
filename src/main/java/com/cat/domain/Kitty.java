@@ -3,10 +3,12 @@ package com.cat.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,7 +24,8 @@ public class Kitty {
 	
 	private LocalDateTime birthday;
 
-	@OneToOne
+	@OneToOne(cascade={CascadeType.REMOVE,CascadeType.PERSIST,CascadeType.MERGE}) 
+	@JoinColumn(name="GENE_ID", unique=true, nullable=false, updatable=false)
 	private Gene gene;
 	
 //	private Kitty sire;
@@ -32,7 +35,8 @@ public class Kitty {
 	@OneToMany
 	private List<Kitty> children;
 
-	@OneToOne
+	@OneToOne(cascade={CascadeType.REMOVE,CascadeType.PERSIST,CascadeType.MERGE}) 
+	@JoinColumn(name="IMAGE_ID", unique=true, nullable=false, updatable=false)
 	private Image image;
 
 	public long getId() {

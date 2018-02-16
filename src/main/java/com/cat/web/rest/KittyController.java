@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
+import javax.transaction.Transactional;
 
 import com.cat.util.SVGServiceImpl;
 
@@ -40,17 +41,20 @@ public class KittyController {
 	private GeneRepository geneRepository;
 	
 	@RequestMapping(path = PATH, method = RequestMethod.GET)
+	@Transactional
 	public KittyContainer getKitty() throws IOException, TranscoderException {
 		Kitty kitty = new Kitty();
 		Gene gene = new Gene();
 		Image image = new Image();
 		image.setPath(SVGServiceImpl.generateKittyImage(Arrays.asList(gene.getGenes())));
-		kitty.setImage(imageRepository.save(image));
+		kitty.setImage(image);
 		kitty.setBirthday(LocalDateTime.now());
-		kitty.setGene(geneRepository.save(gene));
+		kitty.setGene(gene);
 		kitty.setKittyName("招财猫");
-		
-		return new KittyContainer(kittyRepository.save(kitty));
+		Kitty entity = kittyRepository.save(kitty);
+		entity.getGene().setKitty(entity);
+		entity.getImage().setKitty(entity);
+		return new KittyContainer(kittyRepository.save(entity));
 	}
 
 

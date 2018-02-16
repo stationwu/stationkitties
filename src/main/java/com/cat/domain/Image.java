@@ -1,7 +1,6 @@
 package com.cat.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author I067768
@@ -21,7 +20,7 @@ public class Image {
     
     private String contentType;
 
-    @OneToOne
+    @OneToOne(cascade={CascadeType.REMOVE,CascadeType.PERSIST,CascadeType.MERGE}) 
     private Kitty kitty;
 
 	public long getId() {
