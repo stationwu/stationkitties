@@ -1,12 +1,10 @@
 package com.cat.web.rest;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-
-import com.cat.util.SVGServiceImpl;
 
 import org.apache.batik.transcoder.TranscoderException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,47 +13,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cat.dao.GeneRepository;
-import com.cat.dao.ImageRepository;
-import com.cat.dao.KittyRepository;
-import com.cat.domain.Gene;
-import com.cat.domain.Image;
+import com.cat.dao.CustomerRepository;
+import com.cat.domain.Customer;
 import com.cat.domain.Kitty;
+import com.cat.domain.dto.CustomerContainer;
 import com.cat.domain.dto.KittyContainer;
+import com.cat.service.KittyService;
 
 @RestController
 @ExposesResourceFor(Kitty.class)
 public class KittyController {
-	public static final String PATH = "/Kitties";
+	public static final String PATH = "/Kitty";
+	
+	public static final String 	KITTY_ADD_PATH = PATH +"/Add";
 	
 	@Autowired
-	private SVGServiceImpl SVGServiceImpl;
+	private CustomerRepository customerRepository;
 	
 	@Autowired
-	private ImageRepository imageRepository;
+	private KittyService kittyService;
 	
-	@Autowired
-	private KittyRepository kittyRepository;
-	
-	@Autowired
-	private GeneRepository geneRepository;
-	
-	@RequestMapping(path = PATH, method = RequestMethod.GET)
+	@RequestMapping(path = KITTY_ADD_PATH, method = RequestMethod.GET)
 	@Transactional
-	public KittyContainer getKitty() throws IOException, TranscoderException {
-		Kitty kitty = new Kitty();
-		Gene gene = new Gene();
-		Image image = new Image();
-		image.setPath(SVGServiceImpl.generateKittyImage(Arrays.asList(gene.getGenes())));
-		kitty.setImage(image);
-		kitty.setBirthday(LocalDateTime.now());
-		kitty.setGene(gene);
-		kitty.setKittyName("招财猫");
-		Kitty entity = kittyRepository.save(kitty);
-		entity.getGene().setKitty(entity);
-		entity.getImage().setKitty(entity);
-		return new KittyContainer(kittyRepository.save(entity));
+	public List<KittyContainer> addKittyToCustomer(HttpSession session) throws IOException, TranscoderException {
+		String openCode = (String) session.getAttribute("OpenCode");
+		Customer customer = customerRepository.findOneByOpenCode(openCode);
+		customer.addKitties(kittyService.getRaddomKitty());
+		customerRepository.save(customer);
+		CustomerContainer customerContainer = new CustomerContainer(customer);
+		return customerContainer.getKitties();
 	}
 
-
 }
+
