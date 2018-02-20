@@ -101,7 +101,21 @@
 		</dependency>
 		<!-- 此处不能使用2.9.1版本，使用2.9.1生成png会失败 -->
 <!-- svg 生成png格式图片结束 -->
-		
+		<dependency>
+	      <groupId>org.apache.httpcomponents</groupId>
+	      <artifactId>httpclient</artifactId>
+	      <version>4.5.2</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.apache.httpcomponents</groupId>
+	      <artifactId>httpclient-cache</artifactId>
+	      <version>4.5</version>
+	    </dependency>
+	    <dependency>
+	     <groupId>org.apache.httpcomponents</groupId>
+	     <artifactId>httpmime</artifactId>
+	     <version>4.3.2</version>
+	    </dependency>
 	</dependencies>
 
 	<build>

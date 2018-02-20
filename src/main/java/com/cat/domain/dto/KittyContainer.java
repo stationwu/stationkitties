@@ -1,5 +1,6 @@
 package com.cat.domain.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import com.cat.domain.Kitty;
 
@@ -20,6 +21,10 @@ public class KittyContainer {
 	private String gender;
 
 	private String imageUrl;
+	
+	private BigDecimal price;
+	
+	private boolean isForSale;
 
 	public KittyContainer(Kitty kitty) {
 		this.id = kitty.getId();
@@ -29,6 +34,8 @@ public class KittyContainer {
 		this.gender = kitty.getGender().toString();
 		this.sireId = kitty.getSire() == null ? 0 : kitty.getSire().getId();
 		this.matronId = kitty.getMatron() == null ? 0 : kitty.getMatron().getId();
+		this.price = kitty.getPrice();
+		this.isForSale = kitty.isForSale();
 	}
 
 }

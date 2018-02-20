@@ -1,5 +1,6 @@
 package com.cat.domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
@@ -29,6 +30,8 @@ public class Kitty {
 	private Gender gender;
 	
 	private LocalDateTime birthday;
+	
+	private boolean isForSale = true;
 
 	@OneToOne(cascade={CascadeType.REMOVE,CascadeType.PERSIST,CascadeType.MERGE}) 
 	@JoinColumn(name="GENE_ID", unique=true, nullable=false, updatable=false)
@@ -47,6 +50,8 @@ public class Kitty {
 	
 	@OneToMany
 	private List<Kitty> children;
+	
+	private BigDecimal price= new BigDecimal(500);
 
 	@OneToOne(cascade={CascadeType.REMOVE,CascadeType.PERSIST,CascadeType.MERGE}) 
 	@JoinColumn(name="IMAGE_ID", unique=true, nullable=false, updatable=false)
@@ -139,6 +144,23 @@ public class Kitty {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+	
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+	
+	public boolean isForSale() {
+		return isForSale;
+	}
+
+	public void setForSale(boolean isForSale) {
+		this.isForSale = isForSale;
 	}
 
 	public enum Gender{
