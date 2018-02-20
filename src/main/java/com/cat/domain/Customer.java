@@ -3,6 +3,7 @@ package com.cat.domain;
 
 import javax.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class Customer {
     private String openCode;
 
     private String name;
+    
+    private BigDecimal wallet;
 
     @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "customer")
     private List<Kitty> kitties = new ArrayList<>();
@@ -25,7 +28,7 @@ public class Customer {
     }
     
     public Customer() {
-		
+    	this.wallet = new BigDecimal(1000);
 	}
     
 	public String getName() {
@@ -55,5 +58,13 @@ public class Customer {
 	public String getOpenCode() {
 		return openCode;
 	}
-    
+
+	public BigDecimal getWallet() {
+		return wallet;
+	}
+
+	public void setWallet(BigDecimal wallet) {
+		this.wallet = wallet;
+	}
+	
 }

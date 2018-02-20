@@ -53,35 +53,35 @@ public class SVGServiceImpl {
 	public String generateKittyImage(List<Byte> geneList) throws IOException, TranscoderException {
 		BodyType bodyType = BodyType.byOrdinal(geneList.get(19));
 
-		logger.info("bodyType" + Integer.toString(bodyType.getIndex()) + bodyType.getFileName());
+		logger.debug("bodyType" + Integer.toString(bodyType.getIndex()) + bodyType.getFileName());
 
 		PatternType patternType = PatternType.byOrdinal(geneList.get(23));
 
-		logger.info("patternType" + Integer.toString(patternType.getIndex()) + patternType.getPatternName());
+		logger.debug("patternType" + Integer.toString(patternType.getIndex()) + patternType.getPatternName());
 
 		MouthType mouthType = MouthType.byOrdinal(geneList.get(27));
 
-		logger.info("mouthType" + Integer.toString(mouthType.getIndex()) + mouthType.getFileName());
+		logger.debug("mouthType" + Integer.toString(mouthType.getIndex()) + mouthType.getFileName());
 
 		EyeType eyeType = EyeType.byOrdinal(geneList.get(31));
 
-		logger.info("eyeType" + Integer.toString(eyeType.getIndex()) + eyeType.getFileName());
+		logger.debug("eyeType" + Integer.toString(eyeType.getIndex()) + eyeType.getFileName());
 
 		PrimaryColor primaryColor = PrimaryColor.byOrdinal(geneList.get(35));
 
-		logger.info("primaryColor" + Integer.toString(primaryColor.getIndex()) + primaryColor.getColor());
+		logger.debug("primaryColor" + Integer.toString(primaryColor.getIndex()) + primaryColor.getColor());
 
 		SecondaryColor secondaryColor = SecondaryColor.byOrdinal(geneList.get(39));
 
-		logger.info("secondaryColor" + Integer.toString(secondaryColor.getIndex()) + secondaryColor.getColor());
+		logger.debug("secondaryColor" + Integer.toString(secondaryColor.getIndex()) + secondaryColor.getColor());
 
 		TertiaryColor tertiaryColor = TertiaryColor.byOrdinal(geneList.get(43));
 
-		logger.info("tertiaryColor" + Integer.toString(tertiaryColor.getIndex()) + tertiaryColor.getColor());
+		logger.debug("tertiaryColor" + Integer.toString(tertiaryColor.getIndex()) + tertiaryColor.getColor());
 
 		EyeColor eyeColor = EyeColor.byOrdinal(geneList.get(47));
 
-		logger.info("eyeColor" + Integer.toString(eyeColor.getIndex()) + eyeColor.getColor());
+		logger.debug("eyeColor" + Integer.toString(eyeColor.getIndex()) + eyeColor.getColor());
 
 		String kittyBodyPath = bodyType.getPath() + '-' + patternType.getPatternName();
 		String kittyMouthPath = mouthType.getPath();
@@ -119,11 +119,11 @@ public class SVGServiceImpl {
 			eyeContent.replaceAll(eColor.toString(), eyeColor.toString());
 		}
 
-		logger.info("body step");
+		logger.debug("body step");
 		BufferedImage bodyImage = generateImage(bodyContent);
-		logger.info("mouth step");
+		logger.debug("mouth step");
 		BufferedImage mouthImage = generateImage(mouthContent);
-		logger.info("eye step");
+		logger.debug("eye step");
 		BufferedImage eyeImage = generateImage(eyeContent);
 		BufferedImage image = new BufferedImage(400, 400, 2);
 		Graphics2D g = image.createGraphics();

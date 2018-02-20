@@ -1,7 +1,6 @@
 package com.cat.web.rest;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -19,7 +18,6 @@ import com.cat.dao.KittyRepository;
 import com.cat.domain.Customer;
 import com.cat.domain.Kitty;
 import com.cat.domain.dto.CustomerContainer;
-import com.cat.domain.dto.KittyContainer;
 import com.cat.service.KittyService;
 
 @RestController
@@ -39,7 +37,7 @@ public class CustomerController {
 	
 	@RequestMapping(path = USER_PATH, method = RequestMethod.GET)
 	@Transactional
-	public List<KittyContainer> getKitty(@PathVariable String openCode, HttpSession session) throws IOException, TranscoderException {
+	public CustomerContainer getKitty(@PathVariable String openCode, HttpSession session) throws IOException, TranscoderException {
 		Customer customer = null;
 		if(!customerRepository.isCustomerAlreadyRegistered(openCode)){
 			customer = new Customer(openCode);
@@ -53,7 +51,7 @@ public class CustomerController {
 		}
 		session.setAttribute("OpenCode", openCode);
 		CustomerContainer customerContainer = new CustomerContainer(customer);
-		return customerContainer.getKitties();
+		return customerContainer;
 	}
 
 
