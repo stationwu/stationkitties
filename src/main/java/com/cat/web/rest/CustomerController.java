@@ -1,11 +1,15 @@
 package com.cat.web.rest;
 
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.xpath;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -94,6 +98,17 @@ public class CustomerController {
 			kittyRepository.save(kitty);
 		} else {
 			customer = customerRepository.findOneByOpenCode(openCode);
+			Random number = new Random();
+			List<Kitty> mKitties = customer.getKitties().stream().filter(x -> x.getGender()==Kitty.Gender.MALE).collect(Collectors.toList());
+			List<Kitty> sKitties = customer.getKitties().stream().filter(x -> x.getGender()==Kitty.Gender.FEMALE).collect(Collectors.toList());
+			if(number.nextInt(100)<10){
+				Kitty mKitty=mKitties.get(number.nextInt(mKitties.size()));
+				Kitty sKitty=sKitties.get(number.nextInt(sKitties.size()));
+				Kitty babyKittiy = kittyService.getBabyKitty(mKitty, sKitty);
+				babyKittiy.setCustomer(customer);
+				babyKittiy = kittyRepository.save(babyKittiy);
+				customer.addKitties(babyKittiy);
+			}
 		}
 		session.setAttribute("OpenCode", openCode);
 		CustomerContainer customerContainer = new CustomerContainer(customer);

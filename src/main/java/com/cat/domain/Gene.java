@@ -97,7 +97,7 @@ public class Gene {
 					gene2 = temp;
 				}
 				if ((gene2 - gene1) == 1 && isEven(gene1)) {
-					int probability = 25;
+					int probability = 20;
 					if (gene1 > 3) {
 						probability /= 2;
 					}

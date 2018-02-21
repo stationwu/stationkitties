@@ -46,6 +46,10 @@ public class Customer {
 	public void addKitties(Kitty kitty) {
 		this.kitties.add(kitty);
 	}
+	
+	public void removeKitties(Kitty kitty) {
+		this.kitties.remove(kitty);
+	}
 
 	public void setKitties(List<Kitty> kitties) {
 		this.kitties = kitties;

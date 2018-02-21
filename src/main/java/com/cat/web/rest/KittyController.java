@@ -86,13 +86,13 @@ public class KittyController {
 	
 	@RequestMapping(path = SALE_PATH, method = RequestMethod.GET)
 	@Transactional
-	public KittyContainer saleKitty(@Param("openCode") String openCode,@Param("kittyId") Long kittyId,@Param("price") BigDecimal price) throws Exception {
+	public KittyContainer saleKitty(@Param("openCode") String openCode,@Param("kittyId") Long kittyId,@Param("price") Double price) throws Exception {
 		Kitty kitty = kittyRepository.findOne(kittyId);
 		Customer customer = customerRepository.findOneByOpenCode(openCode);
 		if(customer == null)
 			throw new Exception("no customer");
 		kitty.setForSale(true);
-		kitty.setPrice(price);
+		kitty.setPrice(new BigDecimal(price));
 		return new KittyContainer(kittyRepository.save(kitty));
 	}
 	
@@ -107,9 +107,19 @@ public class KittyController {
 		if(customer.getWallet().doubleValue() < kitty.getPrice().doubleValue()){
 			throw new Exception("鱼干不足");
 		}
+		if(customer.getKitties().size()>9){
+			throw new Exception("猫窝中的猫猫数量过多，最多只能养9只猫~");
+		}
+		Customer owner = kitty.getCustomer();
+		if(owner != null){
+			owner.setWallet(new BigDecimal(owner.getWallet().doubleValue() + kitty.getPrice().doubleValue()));
+			owner.removeKitties(kitty);
+			customerRepository.save(owner);
+		}
 		kitty.setForSale(false);
 		kitty.setCustomer(customer);
 		kittyRepository.save(kitty);
+		customer.setWallet(new BigDecimal(customer.getWallet().doubleValue() - kitty.getPrice().doubleValue()));
 		customer.addKitties(kitty);
 		customerRepository.save(customer);
 		return "购买成功";
