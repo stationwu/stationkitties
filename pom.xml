@@ -6,7 +6,6 @@
 	<groupId>com.cat</groupId>
 	<artifactId>Stationkitties</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 
 	<name>Stationkitties</name>
 	<description>Kitties project for Spring Boot</description>
