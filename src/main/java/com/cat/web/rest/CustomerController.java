@@ -41,6 +41,8 @@ public class CustomerController {
 	public static final String PATH = "/User";
 
 	public static final String USER_PATH = PATH + "/{code}";
+	
+	public static final String USER_INFO_PATH = "/UserInfo" + "/{code}";
 
 	@Autowired
 	private KittyService kittyService;
@@ -115,7 +117,7 @@ public class CustomerController {
 		return customerContainer;
 	}
 
-	@RequestMapping(path = USER_PATH, method = RequestMethod.POST)
+	@RequestMapping(path = USER_INFO_PATH, method = RequestMethod.GET)
 	@Transactional
 	public CustomerContainer getDetail(@PathVariable String code) throws Exception, IOException, TranscoderException {
 		Customer customer = null;
