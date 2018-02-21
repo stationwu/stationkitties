@@ -14,7 +14,7 @@ public enum BodyType implements KittyProperty {
 
 	private String fileName;
 
-	final private String folder = "\\body\\";
+	final private String folder = "/body/";
 
 	private BodyType(int index, String fileName) {
 		this.index = index;

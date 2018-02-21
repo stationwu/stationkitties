@@ -14,7 +14,7 @@ public enum EyeType implements KittyProperty {
 
 	private String fileName;
 
-	final private String folder = "\\eye\\";
+	final private String folder = "/eye/";
 
 	private EyeType(int index, String fileName) {
 		this.index = index;
