@@ -14,6 +14,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(unique=true,nullable=false)
     private String openCode;
 
     private String name;
