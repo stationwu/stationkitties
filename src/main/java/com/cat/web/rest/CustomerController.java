@@ -87,8 +87,8 @@ public class CustomerController {
 		} catch (IOException e) {
 			System.out.println("http请求失败，uri{},exception{}");
 		}
-
-		if (!customerRepository.isCustomerAlreadyRegistered(openCode)) {
+		customer = customerRepository.findOneByOpenCode(openCode);
+		if (customer == null) {
 			customer = new Customer(openCode);
 			Kitty kitty = kittyService.getRaddomKitty();
 			customer.addKitties(kitty);
@@ -97,7 +97,6 @@ public class CustomerController {
 			kitty.setForSale(false);
 			kittyRepository.save(kitty);
 		} else {
-			customer = customerRepository.findOneByOpenCode(openCode);
 			Random number = new Random();
 			List<Kitty> mKitties = customer.getKitties().stream().filter(x -> x.getGender() == Kitty.Gender.MALE)
 					.collect(Collectors.toList());
