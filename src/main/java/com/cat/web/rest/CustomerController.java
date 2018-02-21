@@ -102,7 +102,7 @@ public class CustomerController {
 					.collect(Collectors.toList());
 			List<Kitty> sKitties = customer.getKitties().stream().filter(x -> x.getGender() == Kitty.Gender.FEMALE)
 					.collect(Collectors.toList());
-			if (number.nextInt(100) < 15 && customer.getKitties().size() < 9 && mKitties.size() >= 1
+			if (number.nextInt(100) < 8 && customer.getKitties().size() < 9 && mKitties.size() >= 1
 					&& sKitties.size() >= 1) {
 				Kitty mKitty = mKitties.get(number.nextInt(mKitties.size()));
 				Kitty sKitty = sKitties.get(number.nextInt(sKitties.size()));
@@ -123,7 +123,21 @@ public class CustomerController {
 		Customer customer = null;
 		String openCode = code;
 		customer = customerRepository.findOneByOpenCode(openCode);
-
+		Random number = new Random();
+		List<Kitty> mKitties = customer.getKitties().stream().filter(x -> x.getGender() == Kitty.Gender.MALE)
+				.collect(Collectors.toList());
+		List<Kitty> sKitties = customer.getKitties().stream().filter(x -> x.getGender() == Kitty.Gender.FEMALE)
+				.collect(Collectors.toList());
+		if (number.nextInt(100) < 8 && customer.getKitties().size() < 9 && mKitties.size() >= 1
+				&& sKitties.size() >= 1) {
+			Kitty mKitty = mKitties.get(number.nextInt(mKitties.size()));
+			Kitty sKitty = sKitties.get(number.nextInt(sKitties.size()));
+			Kitty babyKittiy = kittyService.getBabyKitty(mKitty, sKitty);
+			babyKittiy.setCustomer(customer);
+			babyKittiy = kittyRepository.save(babyKittiy);
+			customer.addKitties(babyKittiy);
+			customer = customerRepository.save(customer);
+		}
 		CustomerContainer customerContainer = new CustomerContainer(customer);
 		return customerContainer;
 	}
