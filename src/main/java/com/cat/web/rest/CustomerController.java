@@ -41,7 +41,7 @@ public class CustomerController {
 	public static final String PATH = "/User";
 
 	public static final String USER_PATH = PATH + "/{code}";
-	
+
 	public static final String USER_INFO_PATH = "/UserInfo" + "/{code}";
 
 	@Autowired
@@ -103,7 +103,8 @@ public class CustomerController {
 					.collect(Collectors.toList());
 			List<Kitty> sKitties = customer.getKitties().stream().filter(x -> x.getGender() == Kitty.Gender.FEMALE)
 					.collect(Collectors.toList());
-			if (number.nextInt(100) < 10 && customer.getKitties().size() < 9) {
+			if (number.nextInt(100) < 10 && customer.getKitties().size() < 9 && mKitties.size() > 1
+					&& sKitties.size() > 1) {
 				Kitty mKitty = mKitties.get(number.nextInt(mKitties.size()));
 				Kitty sKitty = sKitties.get(number.nextInt(sKitties.size()));
 				Kitty babyKittiy = kittyService.getBabyKitty(mKitty, sKitty);
