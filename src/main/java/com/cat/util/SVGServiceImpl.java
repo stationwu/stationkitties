@@ -133,8 +133,6 @@ public class SVGServiceImpl {
 		g.drawImage(eyeImage, 0, 0, bodyImage.getWidth(), bodyImage.getHeight(), null);
 		g.dispose();
 		
-		ImageIO.write(image, "png", new File("d:\\1.png"));
-
 		return fileStorageService.store(image);
 	}
 
