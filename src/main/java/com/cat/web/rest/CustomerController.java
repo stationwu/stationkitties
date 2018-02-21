@@ -75,10 +75,10 @@ public class CustomerController {
 			httpresponse = httpClient.execute(httpPost);
 			HttpEntity httpEntity = httpresponse.getEntity();
 			String response = EntityUtils.toString(httpEntity, "utf-8");
-			if(response.indexOf("openid")<0){
+			if (response.indexOf("openid") < 0) {
 				throw new Exception("请使用微信登录");
-			}else{
-				openCode = response.substring(response.indexOf("openid")+9, response.length()-2);
+			} else {
+				openCode = response.substring(response.indexOf("openid") + 9, response.length() - 2);
 			}
 		} catch (ClientProtocolException e) {
 			System.out.println("http请求失败，uri{},exception{}");
@@ -97,11 +97,13 @@ public class CustomerController {
 		} else {
 			customer = customerRepository.findOneByOpenCode(openCode);
 			Random number = new Random();
-			List<Kitty> mKitties = customer.getKitties().stream().filter(x -> x.getGender()==Kitty.Gender.MALE).collect(Collectors.toList());
-			List<Kitty> sKitties = customer.getKitties().stream().filter(x -> x.getGender()==Kitty.Gender.FEMALE).collect(Collectors.toList());
-			if(number.nextInt(100)<10){
-				Kitty mKitty=mKitties.get(number.nextInt(mKitties.size()));
-				Kitty sKitty=sKitties.get(number.nextInt(sKitties.size()));
+			List<Kitty> mKitties = customer.getKitties().stream().filter(x -> x.getGender() == Kitty.Gender.MALE)
+					.collect(Collectors.toList());
+			List<Kitty> sKitties = customer.getKitties().stream().filter(x -> x.getGender() == Kitty.Gender.FEMALE)
+					.collect(Collectors.toList());
+			if (number.nextInt(100) < 10 && customer.getKitties().size() < 9) {
+				Kitty mKitty = mKitties.get(number.nextInt(mKitties.size()));
+				Kitty sKitty = sKitties.get(number.nextInt(sKitties.size()));
 				Kitty babyKittiy = kittyService.getBabyKitty(mKitty, sKitty);
 				babyKittiy.setCustomer(customer);
 				babyKittiy = kittyRepository.save(babyKittiy);
@@ -112,15 +114,14 @@ public class CustomerController {
 		CustomerContainer customerContainer = new CustomerContainer(customer);
 		return customerContainer;
 	}
-	
+
 	@RequestMapping(path = USER_PATH, method = RequestMethod.POST)
 	@Transactional
-	public CustomerContainer getDetail(@PathVariable String code)
-			throws Exception, IOException, TranscoderException {
+	public CustomerContainer getDetail(@PathVariable String code) throws Exception, IOException, TranscoderException {
 		Customer customer = null;
 		String openCode = code;
 		customer = customerRepository.findOneByOpenCode(openCode);
-	
+
 		CustomerContainer customerContainer = new CustomerContainer(customer);
 		return customerContainer;
 	}
