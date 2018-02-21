@@ -1,7 +1,5 @@
 package com.cat.web.rest;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.xpath;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
