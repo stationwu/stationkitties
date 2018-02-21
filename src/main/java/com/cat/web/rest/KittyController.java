@@ -132,6 +132,9 @@ public class KittyController {
 		Customer customer = customerRepository.findOneByOpenCode(openCode);
 		if(customer == null)
 			throw new Exception("no customer");
+		if(kitty.isForSale() == false){
+			throw new Exception("已经被买走咯~");
+		}
 		kitty.setForSale(false);
 		return new KittyContainer(kittyRepository.save(kitty));
 	}
