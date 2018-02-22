@@ -45,6 +45,8 @@ public class KittyController {
 	public static final String SALE_CANCEL_PATH = "/SaleCancel";
 
 	public static final String KITTY_ADD_PATH = PATH + "/Add";
+	
+	public static final String RECOVER_PATH = "/Recover";
 
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -138,5 +140,20 @@ public class KittyController {
 		kitty.setForSale(false);
 		return new KittyContainer(kittyRepository.save(kitty));
 	}
-
+	
+	@RequestMapping(path = RECOVER_PATH, method = RequestMethod.GET)
+	@Transactional
+	public KittyContainer recoverlKitty(@Param("openCode") String openCode,@Param("kittyId") Long kittyId) throws Exception {
+		Kitty kitty = kittyRepository.findOne(kittyId);
+		Customer customer = customerRepository.findOneByOpenCode(openCode);
+		if(customer == null)
+			throw new Exception("no customer");
+		customer.removeKitties(kitty);
+		customerRepository.save(customer);
+		kitty.setCustomer(null);
+		kitty.setForSale(true);
+		kitty.setPrice(new BigDecimal(500));
+		return new KittyContainer(kittyRepository.save(kitty));
+	}
+	
 }
