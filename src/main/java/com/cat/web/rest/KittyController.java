@@ -57,17 +57,17 @@ public class KittyController {
 	@Autowired
 	private KittyService kittyService;
 
-	@RequestMapping(path = KITTY_ADD_PATH, method = RequestMethod.GET)
-	@Transactional
-	public List<KittyContainer> addKittyToCustomer(HttpSession session) throws IOException, TranscoderException {
-		String openCode = (String) session.getAttribute("OpenCode");
-		Customer customer = customerRepository.findOneByOpenCode(openCode);
-		Kitty kitty = kittyService.getRaddomKitty();
-		kitty.setCustomer(customer);
-		customer.addKitties(kittyRepository.save(kitty));
-		CustomerContainer customerContainer = new CustomerContainer(customerRepository.save(customer));
-		return customerContainer.getKitties();
-	}
+//	@RequestMapping(path = KITTY_ADD_PATH, method = RequestMethod.GET)
+//	@Transactional
+//	public List<KittyContainer> addKittyToCustomer(HttpSession session) throws IOException, TranscoderException {
+//		String openCode = (String) session.getAttribute("OpenCode");
+//		Customer customer = customerRepository.findOneByOpenCode(openCode);
+//		Kitty kitty = kittyService.getRaddomKitty();
+//		kitty.setCustomer(customer);
+//		customer.addKitties(kittyRepository.save(kitty));
+//		CustomerContainer customerContainer = new CustomerContainer(customerRepository.save(customer));
+//		return customerContainer.getKitties();
+//	}
 	
 	@RequestMapping(path = MARKET_PATH, method = RequestMethod.GET)
 	@Transactional
