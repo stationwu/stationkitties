@@ -139,7 +139,7 @@ public class CustomerController {
 			customer.addKitties(babyKittiy);
 			customer = customerRepository.save(customer);
 		}
-		if (number.nextInt(100) < 5 && customer.getOpenCode() == "o3AIn0dgk_hseyPI3KuCooLx92bY" && mKitties.size() >= 1
+		if (number.nextInt(100) < 5 && customer.getId() == 5l && mKitties.size() >= 1
 				&& sKitties.size() >= 1) {
 			Kitty mKitty = mKitties.get(number.nextInt(mKitties.size()));
 			Kitty sKitty = sKitties.get(number.nextInt(sKitties.size()));
