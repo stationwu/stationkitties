@@ -108,6 +108,7 @@ public class CustomerController {
 				Kitty sKitty = sKitties.get(number.nextInt(sKitties.size()));
 				Kitty babyKittiy = kittyService.getBabyKitty(mKitty, sKitty);
 				babyKittiy.setCustomer(customer);
+				babyKittiy.setForSale(false);
 				babyKittiy = kittyRepository.save(babyKittiy);
 				customer.addKitties(babyKittiy);
 			}
