@@ -60,8 +60,8 @@ public class CustomerController {
 		Customer customer = null;
 		String openCode = null;
 		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("appid", "wxe59cf03c85cab017");
-		paramMap.put("secret", "d219f034d73c5289299393aa661aebae");
+		paramMap.put("appid", "wx70accdcd4225efe0");
+		paramMap.put("secret", "3b77a8801ab6815cab471ad67f6246f1");
 		paramMap.put("js_code", code);
 		paramMap.put("grant_type", "authorization_code");
 		List<NameValuePair> list = new LinkedList<NameValuePair>();
