@@ -140,8 +140,6 @@ public class KittyController {
 		if (kitty.isForSale() == false) {
 			throw new Exception("已经被买走咯~");
 		}
-		customer.setWallet(customer.getWallet().add(new BigDecimal(100)));
-		customerRepository.save(customer);
 		kitty.setForSale(false);
 		return new KittyContainer(kittyRepository.save(kitty));
 	}
@@ -155,6 +153,8 @@ public class KittyController {
 		if (customer == null)
 			throw new Exception("no customer");
 		customer.removeKitties(kitty);
+		customer.setWallet(customer.getWallet().add(new BigDecimal(100)));
+		customerRepository.save(customer);
 		customerRepository.save(customer);
 		kitty.setCustomer(null);
 		kitty.setForSale(true);
