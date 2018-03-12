@@ -158,7 +158,7 @@ public class KittyController {
 		customerRepository.save(customer);
 		kitty.setCustomer(null);
 		kitty.setForSale(true);
-		kitty.setPrice(new BigDecimal(500));
+		kitty.setPrice(new BigDecimal(200));
 		return new KittyContainer(kittyRepository.save(kitty));
 	}
 
