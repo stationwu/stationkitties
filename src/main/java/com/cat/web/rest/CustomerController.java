@@ -102,7 +102,7 @@ public class CustomerController {
 					.collect(Collectors.toList());
 			List<Kitty> sKitties = customer.getKitties().stream().filter(x -> x.getGender() == Kitty.Gender.FEMALE)
 					.collect(Collectors.toList());
-			if (number.nextInt(100) < 5 && customer.getKitties().size() < 9 && mKitties.size() >= 1
+			if (number.nextInt(100) < 5 && customer.getKitties().size() < 24 && mKitties.size() >= 1
 					&& sKitties.size() >= 1) {
 				Kitty mKitty = mKitties.get(number.nextInt(mKitties.size()));
 				Kitty sKitty = sKitties.get(number.nextInt(sKitties.size()));
@@ -129,7 +129,7 @@ public class CustomerController {
 				.collect(Collectors.toList());
 		List<Kitty> sKitties = customer.getKitties().stream().filter(x -> x.getGender() == Kitty.Gender.FEMALE)
 				.collect(Collectors.toList());
-		if (number.nextInt(100) < 10 && customer.getKitties().size() < 9 && mKitties.size() >= 1
+		if (number.nextInt(100) < 10 && customer.getKitties().size() < 24 && mKitties.size() >= 1
 				&& sKitties.size() >= 1) {
 			Kitty mKitty = mKitties.get(number.nextInt(mKitties.size()));
 			Kitty sKitty = sKitties.get(number.nextInt(sKitties.size()));

@@ -111,8 +111,8 @@ public class KittyController {
 		if (customer.getWallet().doubleValue() < kitty.getPrice().doubleValue()) {
 			throw new Exception("鱼干不足");
 		}
-		if (customer.getKitties().size() >= 9 && customer.getId() != 5l) {
-			throw new Exception("猫窝中的猫猫数量过多，最多只能养9只猫~");
+		if (customer.getKitties().size() >= 24) {
+			throw new Exception("猫窝中的猫猫数量过多，最多只能养24只猫~");
 		}
 		Customer owner = kitty.getCustomer();
 		if (owner != null) {
