@@ -8,6 +8,8 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,8 @@ import com.cat.domain.Kitty;
 public class KittyAutoBuyer {
 	@Autowired
 	private CustomerRepository customerRepository;
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private KittyRepository kittyRepository;
@@ -30,7 +34,7 @@ public class KittyAutoBuyer {
 			public void run() {
 				while(true) {
 					try{
-						Thread.sleep(900000);
+						Thread.sleep(60000);
 					} catch (InterruptedException e) {
 						
 					}
@@ -50,7 +54,7 @@ public class KittyAutoBuyer {
 		Customer customer = customerRepository.findOne(1l);
 		List<Kitty> kitties = kittyRepository.findAllByIsForSaleIsTrueOrderByCustomerDescIdDesc();
 		Random random = new Random();
-
+		logger.info("autoBuye");
 		if (kitties.size() >= 100) {
 			int overNumber = kitties.size() - 100;
 			Set<Integer> randomSet = new HashSet<>();
