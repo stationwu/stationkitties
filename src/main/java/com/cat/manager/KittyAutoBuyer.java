@@ -34,7 +34,7 @@ public class KittyAutoBuyer {
 			public void run() {
 				while(true) {
 					try{
-						Thread.sleep(60000);
+						Thread.sleep(10000);
 					} catch (InterruptedException e) {
 						
 					}
@@ -42,60 +42,60 @@ public class KittyAutoBuyer {
 					autoBuye();
 				}
 			}
+			
+			@Transactional
+			private void autoBuye() {
+				Customer customer = customerRepository.findOne(1l);
+				List<Kitty> kitties = kittyRepository.findAllByIsForSaleIsTrueOrderByCustomerDescIdDesc();
+				Random random = new Random();
+				logger.info("autoBuye");
+				if (kitties.size() >= 100) {
+					int overNumber = kitties.size() - 100;
+					Set<Integer> randomSet = new HashSet<>();
+					for (int i = 0; i < overNumber; i++) {
+						randomSet.add(random.nextInt(kitties.size() - 1));
+					}
+					for (Integer seq : randomSet) {
+						Kitty kitty = kitties.get(seq);
+						Customer owner = kitty.getCustomer();
+						if (owner != null) {
+							owner.setWallet(new BigDecimal(owner.getWallet().doubleValue() + kitty.getPrice().doubleValue()));
+							owner.removeKitties(kitty);
+							customerRepository.save(owner);
+						}
+						kitty.setForSale(false);
+						kitty.setCustomer(customer);
+						kittyRepository.save(kitty);
+						customer.addKitties(kitty);
+						customerRepository.save(customer);
+					}
+				}else{
+					int systemOwnKittiesNum = customer.getKitties().size();
+					Set<Integer> randomSet = new HashSet<>();
+					if(systemOwnKittiesNum < 50){
+						for (int i = 0; i < systemOwnKittiesNum/2; i++) {
+							randomSet.add(random.nextInt(systemOwnKittiesNum - 1));
+						}
+					}else{
+						for (int i = 0; i < 50; i++) {
+							randomSet.add(random.nextInt(systemOwnKittiesNum - 1));
+						}
+					}
+					for(Integer seq : randomSet){
+						Kitty kitty = customer.getKitties().get(seq);
+						customer.removeKitties(kitty);
+						customerRepository.save(customer);
+						kitty.setCustomer(null);
+						kitty.setForSale(true);
+						kitty.setPrice(new BigDecimal(200));
+						kittyRepository.save(kitty);
+					}
+				}
+			}
 		});
 		thread.setDaemon(true);
 		thread.setName("autoBuyer");
 		thread.start();
-		
 	}
-
-	@Transactional
-	private void autoBuye() {
-		Customer customer = customerRepository.findOne(1l);
-		List<Kitty> kitties = kittyRepository.findAllByIsForSaleIsTrueOrderByCustomerDescIdDesc();
-		Random random = new Random();
-		logger.info("autoBuye");
-		if (kitties.size() >= 100) {
-			int overNumber = kitties.size() - 100;
-			Set<Integer> randomSet = new HashSet<>();
-			for (int i = 0; i < overNumber; i++) {
-				randomSet.add(random.nextInt(kitties.size() - 1));
-			}
-			for (Integer seq : randomSet) {
-				Kitty kitty = kitties.get(seq);
-				Customer owner = kitty.getCustomer();
-				if (owner != null) {
-					owner.setWallet(new BigDecimal(owner.getWallet().doubleValue() + kitty.getPrice().doubleValue()));
-					owner.removeKitties(kitty);
-					customerRepository.save(owner);
-				}
-				kitty.setForSale(false);
-				kitty.setCustomer(customer);
-				kittyRepository.save(kitty);
-				customer.addKitties(kitty);
-				customerRepository.save(customer);
-			}
-		}else{
-			int systemOwnKittiesNum = customer.getKitties().size();
-			Set<Integer> randomSet = new HashSet<>();
-			if(systemOwnKittiesNum < 50){
-				for (int i = 0; i < systemOwnKittiesNum/2; i++) {
-					randomSet.add(random.nextInt(systemOwnKittiesNum - 1));
-				}
-			}else{
-				for (int i = 0; i < 50; i++) {
-					randomSet.add(random.nextInt(systemOwnKittiesNum - 1));
-				}
-			}
-			for(Integer seq : randomSet){
-				Kitty kitty = customer.getKitties().get(seq);
-				customer.removeKitties(kitty);
-				customerRepository.save(customer);
-				kitty.setCustomer(null);
-				kitty.setForSale(true);
-				kitty.setPrice(new BigDecimal(200));
-				kittyRepository.save(kitty);
-			}
-		}
-	}
+	
 }
