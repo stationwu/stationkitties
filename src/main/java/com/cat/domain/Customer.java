@@ -21,7 +21,7 @@ public class Customer {
     
     private BigDecimal wallet = new BigDecimal(1000);
 
-    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "customer")
+    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "customer", fetch=FetchType.EAGER)
     private List<Kitty> kitties = new ArrayList<>();
 
     public Customer(String openCode){
