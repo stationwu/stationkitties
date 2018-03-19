@@ -155,7 +155,6 @@ public class KittyController {
 		customer.removeKitties(kitty);
 		customer.setWallet(customer.getWallet().add(new BigDecimal(100)));
 		customerRepository.save(customer);
-		customerRepository.save(customer);
 		kitty.setCustomer(null);
 		kitty.setForSale(true);
 		kitty.setPrice(new BigDecimal(200));
