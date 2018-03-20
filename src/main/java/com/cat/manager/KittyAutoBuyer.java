@@ -87,7 +87,7 @@ public class KittyAutoBuyer {
 						customerRepository.save(customer);
 						kitty.setCustomer(null);
 						kitty.setForSale(true);
-						kitty.setPrice(new BigDecimal(200));
+						kitty.setPrice(new BigDecimal(random.nextInt(1000)));
 						kittyRepository.save(kitty);
 					}
 				}
