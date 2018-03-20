@@ -34,7 +34,7 @@ public class KittyAutoBuyer {
 			public void run() {
 				while(true) {
 					try{
-						Thread.sleep(900000);
+						Thread.sleep(300000);
 					} catch (InterruptedException e) {
 						
 					}
@@ -50,7 +50,7 @@ public class KittyAutoBuyer {
 				Random random = new Random();
 				logger.info("autoBuye");
 				if (kitties.size() >= 100) {
-					int overNumber = kitties.size() - 100;
+					int overNumber = (kitties.size() + 1) / 3;
 					Set<Integer> randomSet = new HashSet<>();
 					for (int i = 0; i < overNumber; i++) {
 						randomSet.add(random.nextInt(kitties.size() - 1));
