@@ -34,7 +34,7 @@ public class KittyAutoBuyer {
 			public void run() {
 				while(true) {
 					try{
-						Thread.sleep(1800000);
+						Thread.sleep(900000);
 					} catch (InterruptedException e) {
 						
 					}
